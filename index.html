@@ -8,35 +8,23 @@
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#1b4332">
     <link rel="apple-touch-icon" href="./icon.png">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --green: #1b4332; 
-            --orange: #e67e22; 
-            --white: #ffffff;
-            --whatsapp: #25D366;
-            --facebook: #1877F2;
-            --instagram: #E1306C;
-            --tiktok: #000000;
-            --maps: #ea4335;
+            --green: #1b4332; --orange: #e67e22; --white: #ffffff;
+            --whatsapp: #25D366; --facebook: #1877F2; --instagram: #E1306C;
+            --tiktok: #000000; --maps: #ea4335;
         }
 
         body { 
-            font-family: 'Tajawal', sans-serif; 
-            background-color: var(--green); 
-            margin: 0; 
-            padding: 0; 
-            display: flex; 
-            flex-direction: column; 
-            min-height: 100vh;
-            color: white;
-            direction: rtl;
+            font-family: 'Tajawal', sans-serif; background-color: var(--green); 
+            margin: 0; padding: 0; display: flex; flex-direction: column; 
+            min-height: 100vh; color: white; direction: rtl;
         }
 
-        /* الشريط المتحرك العلوي */
+        /* تعديل الشريط المتحرك: من اليمين لليسار + حركة أبطأ */
         .ticker-container {
             background: var(--white);
             color: var(--green);
@@ -49,97 +37,53 @@
             top: 0;
             z-index: 1000;
         }
+        
         .ticker-text {
             display: inline-block;
-            padding-left: 100%;
-            animation: ticker 25s linear infinite;
-        }
-        @keyframes ticker {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-100%, 0); }
+            padding-right: 100%; /* يبدأ النص من خارج الشاشة يميناً */
+            animation: ticker 30s linear infinite; /* زيادة الوقت لـ 30 ثانية تجعله أبطأ */
         }
 
-        /* منطقة الصورة والترحيب */
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100%); } /* التحرك باتجاه اليسار بنسبة كاملة */
+        }
+
         .main-content {
             flex: 1;
             background: linear-gradient(rgba(27,67,50,0.6), rgba(27,67,50,0.9)), 
                         url('https://images.pexels.com/photos/2802527/pexels-photo-2802527.jpeg'); 
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 20px;
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; padding: 40px 20px;
         }
 
         .store-logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 25px;
-            margin-bottom: 15px;
-            border: 3px solid var(--orange);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            background: white;
-            object-fit: cover;
+            width: 100px; height: 100px; border-radius: 25px;
+            margin-bottom: 15px; border: 3px solid var(--orange);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4); background: white; object-fit: cover;
         }
 
         h1 { font-size: 2.2rem; margin: 5px 0; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
         p { font-size: 1.1rem; margin-bottom: 30px; opacity: 0.95; }
 
-        /* أزرار مواقع التواصل */
-        .links-container {
-            width: 100%;
-            max-width: 380px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+        .links-container { width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 15px; }
 
         .link-card {
-            display: flex;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            padding: 14px 20px;
-            border-radius: 18px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            border: 1px solid rgba(255,255,255,0.25);
-            transition: all 0.3s ease;
+            display: flex; align-items: center; background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px); padding: 14px 20px; border-radius: 18px;
+            text-decoration: none; color: white; font-weight: bold;
+            border: 1px solid rgba(255,255,255,0.25); transition: all 0.3s ease;
         }
 
-        .link-card i {
-            font-size: 1.5rem;
-            width: 35px;
-            text-align: center;
-            margin-left: 15px;
-        }
-
+        .link-card i { font-size: 1.5rem; width: 35px; text-align: center; margin-left: 15px; }
         .link-card span { flex: 1; text-align: right; font-size: 1rem; }
+        .link-card:active { background: var(--orange); }
 
-        /* الألوان عند الضغط */
-        .wa-btn:active { background: var(--whatsapp); }
-        .fb-btn:active { background: var(--facebook); }
-        .ig-btn:active { background: var(--instagram); }
-        .tk-btn:active { background: var(--tiktok); }
-        .map-btn:active { background: var(--maps); }
-
-        /* زر تثبيت التطبيق */
         #install-btn {
-            margin-top: 35px;
-            background: var(--orange);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            display: none;
-            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.5);
-            font-family: 'Tajawal';
+            margin-top: 35px; background: var(--orange); color: white;
+            padding: 12px 30px; border-radius: 50px; font-weight: bold;
+            border: none; display: none; box-shadow: 0 5px 15px rgba(230, 126, 34, 0.5);
         }
     </style>
 </head>
@@ -147,48 +91,42 @@
 
     <div class="ticker-container">
         <div class="ticker-text">
-            🌿 مرحباً بكم في متجر عمي حناني لإنتاج البخور والعطور الأصلية منذ عام 1969 🌿 جودة نثق بها وخدمة تفخرون بها 🌿 متواجدون لخدمتكم دائماً 🌿
+            🌿 مرحباً بكم في متجر عمي حناني لبيع أجود انواع البخور والعطور الأصلية منذ عام 1969 🌿 جودة نثق بها وخدمة تفخرون بها 🌿 متواجدون لخدمتكم دائماً 🌿
         </div>
     </div>
 
     <div class="main-content">
-        <img src="https://i.postimg.cc/PvfQnyGB/unnamed-(50).jpg" alt="Logo" class="store-logo">
+        <img src="https://i.postimg.cc/kGK18YTX/unnamed-(50).jpg👇" alt="Logo" class="store-logo" onerror="this.src='https://ui-avatars.com/api/?name=H&background=1b4332&color=fff'">
         
         <h1>متجر عمي حناني</h1>
         <p>الأصالة والجودة منذ 1969</p>
 
         <div class="links-container">
-            <a href="https://wa.me/213660913779" class="link-card wa-btn" target="_blank">
+            <a href="https://wa.me/213660913779" class="link-card" target="_blank">
                 <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i>
                 <span>تواصل معنا عبر واتساب</span>
             </a>
-
-            <a href="https://www.facebook.com/profile.php?id=100057426056631" class="link-card fb-btn" target="_blank">
+            <a href="https://www.facebook.com/profile.php?id=100057426056631" class="link-card" target="_blank">
                 <i class="fa-brands fa-facebook" style="color: #1877F2;"></i>
                 <span>تابعنا على فيسبوك</span>
             </a>
-
-            <a href="https://www.instagram.com/hannani_bio?igsh=NXN6d3NrOW5qZWF4" class="link-card ig-btn" target="_blank">
+            <a href="https://www.instagram.com/hannani_bio?igsh=NXN6d3NrOW5qZWF4" class="link-card" target="_blank">
                 <i class="fa-brands fa-instagram" style="color: #E1306C;"></i>
                 <span>تابعنا على انستغرام</span>
             </a>
-
-            <a href="https://www.tiktok.com/@hannani1969?_r=1&_t=ZS-94HbCsiLY6q" class="link-card tk-btn" target="_blank">
+            <a href="https://www.tiktok.com/@hannani1969?_r=1&_t=ZS-94HbCsiLY6q" class="link-card" target="_blank">
                 <i class="fa-brands fa-tiktok" style="color: #ffffff;"></i>
                 <span>شاهدنا على تيك توك</span>
             </a>
-
-            <a href="https://maps.app.goo.gl/8obEuMjZ7kTXcBMQ9" class="link-card map-btn" target="_blank">
+            <a href="https://maps.app.goo.gl/8obEuMjZ7kTXcBMQ9" class="link-card" target="_blank">
                 <i class="fa-solid fa-location-dot" style="color: #ea4335;"></i>
                 <span>موقع المحل (الخريطة)</span>
             </a>
         </div>
-
         <button id="install-btn">📲 تثبيت تطبيق المتجر</button>
     </div>
 
     <script>
-        // نظام التثبيت (PWA)
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
@@ -200,14 +138,11 @@
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choice) => {
-                    if (choice.outcome === 'accepted') {
-                        document.getElementById('install-btn').style.display = 'none';
-                    }
+                    if (choice.outcome === 'accepted') document.getElementById('install-btn').style.display = 'none';
                 });
             }
         });
 
-        // تسجيل الـ Service Worker
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('./sw.js');
         }
